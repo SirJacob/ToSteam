@@ -1,4 +1,7 @@
 # ToSteam - An Extension for Chrome
+
+### [Download FREE on the Chrome Web Store](https://chrome.google.com/webstore/detail/tosteam/hkgfjlpeckbeifcoafcenionhpeaipaa)
+
 Have you ever started browsing the Steam store just to realize you weren't logged in when you wanted to do something like add a game to your wish-list? If so, this app is the thing for you!
 
 Quickly and easily send a web-page to your Steam client by right-clicking on any Steam page or link and selecting "Send Site to Steam." This allows you so continue browsing right were you left off, now logged in and on the Steam client!
