@@ -1,0 +1,23 @@
+{
+  "name": "ToSteam",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "description": "Send official Steam web pages to the Steam client just by right clicking!",
+  "offline_enabled": false,
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "contextMenus",
+    "declarativeContent",
+    "activeTab"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  }
+}
