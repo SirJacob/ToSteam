@@ -23,7 +23,7 @@ function setup_extensionIcon() {
     };
 
     // onInstalled is called when the extension is installed or updated
-    chrome.runtime.onInstalled.addListener(function (details) {
+    chrome.runtime.onInstalled.addListener(function () {
         chrome.declarativeContent.onPageChanged.removeRules(undefined, function () { // Remove old rules...
             chrome.declarativeContent.onPageChanged.addRules([rule1]); // ...before adding new ones.
         });
@@ -40,7 +40,7 @@ function setup_contextMenuItem() {
     ];
     let contextMenuItem = {
         "id": "ToSteam_eventPage_contextMenuItem",
-        "title": "Send Site to Steam", // Text to be displayed in the context menu
+        "title": "Send Site ToSteam", // Text to be displayed in the context menu
         "contexts": ["page", "link"], // Only allow links and pages themselves to be sent to Steam
         "visible": true,
         "documentUrlPatterns": contextPatterns,
@@ -49,10 +49,23 @@ function setup_contextMenuItem() {
     chrome.contextMenus.removeAll(); // Ensures no duplicates of our context menu item
     chrome.contextMenus.create(contextMenuItem); // Hand off our context menu to Chrome
     // Create a listener for when our context menu item is clicked
-    chrome.contextMenus.onClicked.addListener(function (callback) {
+    chrome.contextMenus.onClicked.addListener(function (info, tab) {
+        // TODO: Partial code duplicate from options.js
+        chrome.storage.sync.get({
+            closeTabOnSend: true,
+        }, function (items) {
+            if (items.closeTabOnSend) {
+                chrome.tabs.remove(tab.id)
+            }
+        });
         /* Since links only exist on pages, lets check to see if the user right-clicked on a link, if not,
         we'll use the page's URL instead. */
-        sendToSteam(callback.linkUrl === undefined ? callback.pageUrl : callback.linkUrl)
+        let url = info.linkUrl === undefined ? info.pageUrl : info.linkUrl;
+        // Bug fix: https://github.com/SirJacob/ToSteam/issues/1
+        if (url.includes("https://steampowered.com/")) {
+            url = url.replace("https://steampowered.com/", "https://steamcommunity.com/");
+        }
+        sendToSteam(url)
     });
 }
 

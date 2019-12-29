@@ -1,6 +1,6 @@
 {
   "name": "ToSteam",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 2,
   "description": "Send official Steam web pages to the Steam client just by right clicking!",
   "offline_enabled": false,
@@ -12,12 +12,17 @@
   "permissions": [
     "contextMenus",
     "declarativeContent",
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "background": {
     "scripts": [
       "background.js"
     ],
     "persistent": false
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
   }
 }
